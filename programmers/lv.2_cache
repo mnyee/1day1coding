@@ -1,0 +1,30 @@
+#LRU 알고리즘
+
+def solution(cacheSize, cities):
+    answer = 0
+    cache = []
+    
+    cache_hit = 1
+    cache_miss = 5
+    if cacheSize == 0:
+        return len(cities)*cache_miss
+    
+    for ref in cities:
+        ref = ref.lower()
+        if ref not in cache:
+            #사이즈가 작을 경우
+            if len(cache) < cacheSize:
+                cache.append(ref)
+                answer += cache_miss
+            #꽉 찬 경우
+            else:
+                cache.pop(0)
+                cache.append(ref)
+                answer += cache_miss
+        else:
+            cache.pop(cache.index(ref))
+            cache.append(ref)
+            answer += cache_hit
+                
+                        
+    return answer
